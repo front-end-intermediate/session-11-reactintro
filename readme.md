@@ -2,8 +2,6 @@
 
 ## Homework
 
-## Homework
-
 * Spend some quality time with the exercises on [Built with React](http://buildwithreact.com) (do the Tutorial).
 
 ## Reading
@@ -37,14 +35,12 @@ Comments:
 
 `{/* <img src={logo} className="logo" alt="logo" /> */}` 
 
-Demo: jc + TAB
-
-See http://wesbos.com/react-jsx-comments/
+<!-- See http://wesbos.com/react-jsx-comments/ -->
 
 Note - to use Emmet run - `ctrl-e`
 
 ```
-$ sudo create-react-app react-pirates
+$ create-react-app react-pirates
 ```
 
 ```
@@ -55,13 +51,18 @@ $ cd react-pirates
 npm run start
 ```
 
-App.js:
+Import our fonts.
 
-`import logo from './anchor.svg';`
+* public / index.html
 
-`<h2>Pirate List</h2>`
+```
+<link href="https://fonts.googleapis.com/css?family=Pirata+One" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
+```
 
-App.css:
+Add some formatting
+
+* App.css:
 
 ```
 .App-header {
@@ -72,24 +73,56 @@ App.css:
 }
 ```
 
+### Components
 
-### props
+* Pirate.js
 
-App.js:
+```
+import React, { Component } from 'react';
+
+class Pirate extends React.Component {
+  render(){
+    return (
+      <p>Pirate Component</p>
+      )
+  }
+}
+
+export default Pirate;
+```
+
+## Properties
+
+* App.js
+
+```
+import Pirate from './Pirate';
+```
 
 ```
 <Pirate tagline="Ahoy there Matey!" />
 ```
 
-Pirate.js:
+* Pirate.js
 
 ```
-<p>{this.props.tagline}</p>
+import React, { Component } from 'react';
+
+class Pirate extends React.Component {
+  render(){
+    return (
+      <p>{this.props.tagline}</p>
+      )
+  }
+}
+
+export default Pirate;
+
 ```
 
 ### React tool
 
-Examine props.
+Inspect using React tool.
 
 Examine component structure (nesting). Use the form. Examine and map each component.
 
@@ -101,8 +134,151 @@ Select <Pirate />
 
 Console: `$r.props`
 
+## Create a Header component
 
-### State / Data binding
+Note link to image and commented line.
+
+```
+import React, { Component } from 'react';
+import logo from '../assets/img/anchor.svg';
+
+class Header extends React.Component {
+  render(){
+    return (
+      <div className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h2>Pirate List</h2>
+      </div>)
+    }
+  }
+
+export default Header;
+```
+
+Create an assets/img directory with the svg file.
+
+Import Header.js into App.js and load some sample data.
+
+* App.js:
+
+`import Header from './Header';`
+
+<!-- `import samplePirates from './sample-pirates';` -->
+
+
+## Adding Pirates
+
+New component: PirateForm.js:
+
+```
+import React, { Component } from 'react';
+import AddPirateForm from './AddPirateForm';
+
+class PirateForm extends React.Component {
+  render(){
+    return (
+      <div>
+      <h3>Pirate Forms</h3>
+      <AddPirateForm />
+      </div>
+      )
+  }
+}
+
+export default PirateForm;
+```
+
+State / Data binding
+
+AddPirateForm.js
+
+```
+import React, { Component } from 'react';
+
+class AddPirateForm extends React.Component {
+  render(){
+    return (
+      <form>
+      <input type="text" placeholder="Pirate name" />
+      <input type="text" placeholder="Pirate vessel" />
+      <input type="text" placeholder="Pirate weapon" />
+      <button type="submit">Add Pirate</button>
+      </form>
+      )
+  }
+}
+
+export default AddPirateForm;
+```
+
+* App.js
+
+```
+import PirateForm from './PirateForm';
+
+...
+
+<PirateForm />
+```
+
+## Method - createPirate
+
+`<form onSubmit={(e) => this.createPirate(e)}>`:
+
+```
+return (
+  <form onSubmit={(e) => this.createPirate(e)}>
+  <input type="text" placeholder="Pirate name" />
+  <input type="text" placeholder="Pirate vessel" />
+  <input type="text" placeholder="Pirate weapon" />
+  <button type="submit">Add Pirate</button>
+  </form>
+  )
+```
+
+In AddPirateForm (a method on the class):
+
+```
+createPirate(event) {
+  event.preventDefault();
+  console.log('make a pirate')
+}
+```
+
+Test
+
+Add `refs` to the form to store references to the input:
+
+```
+<form onSubmit={(e) => this.createPirate(e)}>
+<input ref={(input) => this.name = input } type="text" placeholder="Pirate name" />
+<input ref={(input) => this.vessel = input } type="text" placeholder="Pirate vessel" />
+<input ref={(input) => this.weapon = input } type="text" placeholder="Pirate weapon" />
+<button type="submit">Add Pirate</button>
+</form>
+```
+
+Go to React dev tools, find AddPirateForm component, $r in the console to see the inputs.
+
+Create a `pirate` object.
+
+* AddPirateForm:
+
+```js
+createPirate(event) {
+  event.preventDefault();
+  const pirate = {
+    name: this.name.value,
+    vessel: this.vessel.value,
+    weapon: this.weapon.value,
+  }
+  console.log(pirate)
+}
+```
+
+Test by entering a pirate in the form.
+
+## State / Data binding
 
 In AddPirateForm.js we created a method - createPirate()
 
@@ -138,10 +314,6 @@ When we submit we need to put the contents of the form into our const pirate obj
 </form>
 ```
 
-Go to React dev tools, find AddPirateForm component, $r in the console to see the inputs.
-
-Click on the button to see console statements. 
-
 We are running createPirate() but not doing anything with it.
 
 
@@ -149,7 +321,7 @@ We are running createPirate() but not doing anything with it.
 
 The key difference between props and state is that state is internal and controlled by the component itself, while props are external and controlled by whatever renders the component. - [ref](http://buildwithreact.com/tutorial/state)
 
-We initialized state in App.js:
+We initialize state in App.js:
 
 ```
 class App extends Component {
@@ -164,7 +336,7 @@ class App extends Component {
 
 React tools, find App, view state.
 
-And added to App.js:
+And add to App.js:
 
 ```
   addPirate(pirate){
@@ -216,7 +388,7 @@ See:
 
 Our createPirate function in AddPirateForm is called and works but it does not save the new pirate anywhere. 
 
-We also have an addPirate function in App.js
+We now have an addPirate function in App.js:
 
 ```
   addPirate(pirate){
@@ -235,9 +407,6 @@ Unlike the createPirate function, it stores the new pirate in state. Test with A
 `$r.addPirate({name: 'joe'})`
 
 
-///// End Review
-
-
 ### Passing Props
 
 Let's focus on the addPirate function first.
@@ -246,7 +415,7 @@ App.js > PirateForm > AddPirateForm
 
 We need to make the addPirate function available to AddPirateForm with props.
 
-To PirateForm from `App.js`:
+* To `PirateForm` from `App.js`:
 
 `<PirateForm addPirate={this.addPirate} />`:  
 
@@ -266,7 +435,7 @@ Examine PirateForm props in React tool.
 
 Only one level more! Pass the prop to AddPirateForm.
 
-In PirateForm.js:
+* To `AddPirateForm` from `PirateForm`:
 
 `<AddPirateForm addPirate={this.props.addPirate} />`:
 
@@ -294,7 +463,7 @@ Since there is no reference to AddPirateForm in App.js we needed to perform this
 
 We will use createPirate to develop a pirate instance and them pass the result to addPirate to store the instance in state.
 
-AddPirateForm:
+* AddPirateForm:
 
 `this.props.addPirate(pirate);`
 
@@ -309,7 +478,6 @@ AddPirateForm:
     this.props.addPirate(pirate);
   }
 ```
-
 
 #### Using the form to add a pirate.
 
@@ -348,11 +516,11 @@ createPirate(event) {
 
 The form should now empty and the addPirate function is called to store our pirate in state.
 
-### Displaying Pirates
+## Displaying Pirates
 
 We can add pirates to state but cannot see them in the UI.
 
-Pirate.js:
+* Pirate.js:
 
 ```
 import React, { Component } from 'react'
@@ -385,14 +553,14 @@ JSON.stringify(<data-that-you-want-to-stringify>,<replacer-function-null>,<inden
 
 Pirate.js:
 
-`import piratesFile from './data/sample-pirates'`:
+`import piratesFile from '../data/sample-pirates-array'`:
 
 `<pre><code>{ JSON.stringify(piratesFile, null, 4)}</code></pre>`:
 
-```
+```js
 import React, { Component } from 'react'
-import './css/Pirate.css'
-import piratesFile from './data/sample-pirates'
+// import './css/Pirate.css'
+import piratesFile from '../data/sample-pirates-array'
 
 class Pirate extends React.Component {
   render(){
@@ -463,19 +631,19 @@ class Pirate extends React.Component {
 This time in `App.js` :
 
 ```
-import piratesFile from './data/sample-pirates'
+import piratesFile from './data/sample-pirates-object'
 ```
 
 (Check for errors - might need to recompile by stopping and starting npm.)
 
 ```
-import piratesFile from './data/sample-pirates'
+import piratesFile from './data/sample-pirates-object'
 console.log(piratesFile)
 ```
 
 ### Object.keys()
 
-For this version of sample-pirates we cannot directly use .map which is a method on the Array prototype - not Object. 
+For this version of sample-pirates we cannot directly use .map which is a method on the Array prototype - not the Object prototype. 
 
 Use `Object.keys()`  [Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
 
