@@ -31,11 +31,11 @@ class App extends Component {
       <div className="App">
       <Header />
       <ul>
-{
-  Object.keys(this.state.pirates)
-  .map( key => <Pirate key={key} /> )
-}
-</ul>
+      {
+        Object.keys(this.state.pirates)
+        .map( key => <Pirate key={key} /> )
+      }
+      </ul>
       
       <PirateForm addPirate={this.addPirate} />
       </div>

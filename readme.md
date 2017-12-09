@@ -652,7 +652,7 @@ Use `Object.keys()`  [Mozilla](https://developer.mozilla.org/en-US/docs/Web/Java
 > Object.keys(arr)
 ```
 
-We will massage the <Pirate /> component in App.js to enable the use of .map().
+We will 'massage' the <Pirate /> component in App.js to enable the use of .map().
 
 App.js:
 
