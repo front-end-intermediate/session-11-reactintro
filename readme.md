@@ -9,9 +9,21 @@
 * http://exploringjs.com/es6/ (specifically http://exploringjs.com/es6/ch_core-features.html#sec_from-constr-to-class and http://exploringjs.com/es6/ch_classes.html#ch_classes)
 * Book marking the [Create React App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-stylesheet) notes is also a very good idea. Please skim them.
 
+```bash
+$ create-react-app react-pirates
+```
+
+```
+$ cd react-pirates
+```
+
+```
+npm run start
+```
+
 ## ES6 Classes
 
-see `_classes`
+see `reference/classes`
 
 ### JSX
 
@@ -38,18 +50,6 @@ Comments:
 <!-- See http://wesbos.com/react-jsx-comments/ -->
 
 Note - to use Emmet run - `ctrl-e`
-
-```
-$ create-react-app react-pirates
-```
-
-```
-$ cd react-pirates
-```
-
-```
-npm run start
-```
 
 Import our fonts.
 
