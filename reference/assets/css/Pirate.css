@@ -1,3 +1,7 @@
+.pirate {
+	font-family: 'Trade Winds', cursive;
+}
+
 .pirate ul {
   display: flex;
   flex-direction: row;

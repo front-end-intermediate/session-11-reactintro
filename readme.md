@@ -15,6 +15,8 @@
 $ create-react-app react-pirates
 ```
 
+Move the `data` and `assets` folders from reference to the `src` directory in `react-pirates`.
+
 ```
 $ cd react-pirates
 ```
@@ -56,7 +58,7 @@ A snippet is [available](http://wesbos.com/react-jsx-comments/) for sublime text
 
 Note - to use Emmet run - `ctrl-e`
 
-Import our fonts.
+Import our fonts and clean up the default html template.
 
 * public/index.html
 
@@ -65,37 +67,37 @@ Import our fonts.
 <link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
 ```
 
-Add some formatting in a new directory.
-
-* App.css
+e.g.:
 
 ```
-.App-header {
-  background-color: #eee;
-  height: 150px;
-  padding: 20px;
-  color: #333;
-}
-```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Pirata+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
 
-* index.css
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
-```
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  font-size: 100%;
-  background: #f6f6f6;
-}
+  <title>React App</title>
+</head>
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
 
-h3 {
-  text-align: center;
-  font-family: 'Trade Winds', cursive;
-  font-size: 2rem;
-}
+</body>
+</html>
 
 ```
+
+Point App.js to the new directory for its css (delete the App.css file from the top level of source)
+
+* App
+
+`import './assets/css/App.css';`
 
 ### Components
 
@@ -125,7 +127,13 @@ export default Pirate;
 import Pirate from './components/Pirate';
 ```
 
-In the render function:
+In the render function.
+
+```
+<Pirate />
+```
+
+Ensure it is visible in the view.
 
 ```
 <Pirate tagline="Ahoy from the Pirate Component" />
@@ -164,22 +172,6 @@ Console: `$r.props`
 
 ## CSS
 
-In a new folder, src/assets/css add a new css file.
-
-* Pirate.css
-
-```
-.pirate ul {
-  display: flex;
-  flex-direction: row;
-  list-style: none;
-}
-
-.pirate ul li {
-  flex: 1;
-}
-```
-
 Import it into the Pirate component and add any needed className to the jsx.
 
 * Pirate
@@ -196,7 +188,7 @@ render(){
   }
 ```
 
-## Create a Header component
+## Header component
 
 Note link to image and commented line. Assets are available in the reference folder.
 
@@ -204,6 +196,7 @@ Note link to image and commented line. Assets are available in the reference fol
 
 ```
 import React, { Component } from 'react';
+import '../assets/css/Header.css'
 import logo from '../assets/img/anchor.svg';
 
 class Header extends React.Component {
@@ -221,8 +214,6 @@ export default Header;
 
 Import Header.js into App.js
 
-<!-- and load some sample data. -->
-
 * App.js:
 
 `import Header from './components/Header';`
@@ -232,11 +223,6 @@ Add it to App.js's render method, replacing the current header.
 * App.js
 
 ```jsx
-import React, { Component } from 'react';
-import Header from './components/Header';
-import Pirate from './components/Pirate';
-import './App.css';
-
 class App extends Component {
   render() {
     return (
@@ -247,44 +233,9 @@ class App extends Component {
     );
   }
 }
-
-export default App;
 ```
 
-Add css for the header.
-
-* Header.css
-
-```
-.logo {
-    height: 200px;
-}
-
-.header {
-    height: 220px;
-    padding: 20px;
-    color: #333;
-    background: #bada55 url(../img/hero.png) 100% 50% no-repeat;
-    background-size: 50%;
-}
-
-h1 {
-    font-family: 'Pirata One', cursive;
-    font-size: 2rem;
-    color: #C90813;
-    line-height: 1.1;
-}
-```
-
-Import in into the Header component.
-
-* Header
-
-`import '../assets/css/Header.css';`
-
-Make any adjustments to the JSX and comment out the spinning anchor.
-
-<!-- `import samplePirates from './sample-pirates';` -->
+To apply the css make adjustments to the JSX.
 
 ## Adding Pirates
 
@@ -310,8 +261,6 @@ export default PirateForm;
 
 Note the import statement and JSX.
 
-## State / Data binding
-
 Create an AddPirateForm in components.
 
 * AddPirateForm.js
@@ -335,7 +284,7 @@ class AddPirateForm extends React.Component {
 export default AddPirateForm;
 ```
 
-Import and add it to the JSX.
+Import and add it to the JSX in App.js.
 
 * App.js
 
@@ -369,6 +318,12 @@ return (
   </form>
   )
 ```
+
+Import the css into AddPirateForm.
+
+* AddPirateForm
+
+`import './assets/css/AddPirateForm.css'`
 
 In AddPirateForm create a method on the class.
 
@@ -454,11 +409,13 @@ When we submit we need to put the contents of the form into our const pirate obj
 We are running createPirate() but not doing anything with it.
 
 
-### Get the pirate object into state. 
+## State
 
-The key difference between props and [state](https://facebook.github.io/react-native/docs/state.html) is that state is internal and controlled by the component itself, while props are external and controlled by whatever renders the component. - [ref](http://buildwithreact.com/tutorial/state)
+The key difference between props and [state](https://facebook.github.io/react-native/docs/state.html) is that state is internal and controlled by the component itself, while props are external and controlled by whatever renders the component. - [ref](http://buildwithreact.com/tutorial/state).
 
-We initialize state in App.js.
+Get the pirate object into state. 
+
+We initialize the state in App.js to an empty object.
 
 * App
 
@@ -510,7 +467,7 @@ App.js:
   }
 ```
 
-#### Review
+### Review
 
 Review super in classes:
 
@@ -525,7 +482,7 @@ See:
 `reference / bind / button.html`
 
 
-### State
+## State cont.
 
 Our createPirate function in AddPirateForm is called and works but it does not save the new pirate anywhere. 
 
@@ -550,11 +507,9 @@ Unlike the createPirate function, it stores the new pirate in state. Test with A
 
 ### Passing Props
 
-Let's focus on the addPirate function first.
+We need to make the addPirate function available to AddPirateForm with props.
 
 App.js > PirateForm > AddPirateForm
-
-We need to make the addPirate function available to AddPirateForm with props.
 
 * To `PirateForm` from `App.js`:
 
@@ -620,7 +575,9 @@ We will use createPirate to develop a pirate instance and them pass the result t
   }
 ```
 
-#### Using the form to add a pirate.
+We should now be able to create a pirate using the form and see it in the React browser extension when examining App.
+
+## Resetting the Form
 
 We have refs on the input fields. When we click "Add Pirate" the form still holds the data so we need to empty it out. 
 
@@ -659,54 +616,24 @@ createPirate(event) {
 
 The form should now empty and the addPirate function is called to store our pirate in state.
 
-* AddPirateFrom.css
-
-```css
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-input {
-  font-size: 1rem;
-  padding: 0.5rem;
-  margin: 0.5rem;
-}
-
-button {
-  background: #007eb6;
-  color: #fff;
-  font-size: 1rem;
-  padding: 0.5rem;
-  width: 40%;
-  margin-left: auto;
-  margin-right: 0.5rem;
-  border-radius: 4px;
-}
-```
-
-Import the css into AddPirateForm.
-
-* AddPirateForm
-
-`import './css/AddPirateForm.css'`
-
 ## Displaying Pirates
 
-We can add pirates to state but cannot see them in the UI.
+We can add pirates to state but cannot see them in the UI. Let's create an unordered list in Pirate.js
 
 * Pirate.js:
 
 ```
-import React, { Component } from 'react'
-import './css/Pirate.css'
+import React, { Component } from 'react';
+import '../assets/css/Pirate.css'
 
 class Pirate extends React.Component {
   render(){
     return (
-      <ul>
-        <li>Pirate</li>
-      </ul>
+      <div className='pirate'>
+        <ul>
+          <li></li>
+        </ul>
+      </div>
       )
   }
 }
@@ -714,27 +641,25 @@ class Pirate extends React.Component {
 export default Pirate;
 ```
 
-Unlike Angular there are no built in loops, repeats etc. You must use regular JS. We need a replacement for ng-repeat to make pirate components.
+Unlike Angular there are no built in loops, repeats etc. You simply use vanilla JS (i.e. we need a replacement for ng-repeat to make pirate components).
 
-### Sample Pirates
+## Sample Pirates
 
 1: Using a JSON Array in Pirate.js
 
-Add the data folder from the reference folder to src.
-
 Examine the sample files in the `data` folder.
+
+We will use [JSON stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
 
 JSON.stringify(<data-that-you-want-to-stringify>,<replacer-function-null>,<indentation>)
 
-[JSON stringify vs JSON parse](http://stackoverflow.com/questions/17785592/difference-between-json-stringify-and-json-parse)
-
-Pirate.js:
+* Pirate.js:
 
 `import piratesFile from '../data/sample-pirates-array'`:
 
 `<pre><code>{ JSON.stringify(piratesFile, null, 4)}</code></pre>`:
 
-```js
+```jsx
 import React, { Component } from 'react'
 import '../assets/css/Pirate.css'
 import piratesFile from '../data/sample-pirates-array'
@@ -774,19 +699,15 @@ See also [session-1](https://github.com/mean-spring-2017/session-1/blob/master/_
 * Pirate.js:
 
 ```
-render(){
-  return (
-    <ul>
-        {piratesFile.pirates.map(function(pirate){
-          return (
-            <li>
-            <h4>{pirate.name}</h4>
-            </li>
-          )
-        })}
-    </ul>
-    )
-}
+<ul>
+    {piratesFile.pirates.map(function(pirate){
+      return (
+        <li>
+        <h4>{pirate.name}</h4>
+        </li>
+      )
+    })}
+</ul>
 ```
 
 2: With an Object
@@ -794,13 +715,20 @@ render(){
 Switch the array out for the object version of the pirate samples, remove the import (`import piratesFile from './data/sample-pirates'`) and rollback to:
 
 ```
-render(){
-  return (
-    <ul>
-    <li>Pirate</li>
-    </ul>
-    )
+import React, { Component } from 'react';
+import '../assets/css/Pirate.css'
+
+class Pirate extends React.Component {
+  render(){
+    return (
+      <div className='pirate'>
+      <p>{this.props.tagline}</p>
+      </div>
+      )
+  }
 }
+
+export default Pirate;
 ```
 
 This time we will import the data into `App.js` 
@@ -829,21 +757,21 @@ We will 'massage' the <Pirate /> component in App.js to enable the use of .map()
 * App.js:
 
 ```
-      render() {
-        return (
-          <div className="App">
-          <Header />
-          <ul>
-          {
-            Object.keys(this.state.pirates)
-            .map( key => <Pirate key={key} /> )
-          }
-          </ul>
-          <PirateForm addPirate={this.addPirate} />
-          </div>
-          );
-        }
-      }
+render() {
+  return (
+    <div className="App">
+    <Header />
+    <ul>
+    {
+      Object.keys(this.state.pirates)
+      .map( key => <Pirate key={key} /> )
+    }
+    </ul>
+    <PirateForm addPirate={this.addPirate} />
+    </div>
+    );
+  }
+}
 ```
 
 and use the key to pass a details prop to the Pirate component:
@@ -857,57 +785,45 @@ and use the key to pass a details prop to the Pirate component:
 </ul>
 ```
 
-Pirate.js:
+* Pirate.js:
 
 ```
-render(){
-  return (
-    <ul>
-      <li>{this.props.details.name}</li>
-    </ul>
-    )
-}
+<ul>
+  <li>{this.props.details.name}</li>
+</ul>
 ```
 
 Create a new pirate using the form.
 
-Simplify and add a few more properties:
+Add an object with the details to the Pirate properties and a few more display entries.
+
+* Pirate
 
 ```
+import React, { Component } from 'react';
+import '../assets/css/Pirate.css'
+
+class Pirate extends React.Component {
   render(){
     const {details} = this.props;
     return (
+      <div className='pirate'>
       <ul>
-        <li>{details.name}</li>
-        <li>{details.weapon}</li>
-        <li>{details.vessel}</li>
+      <li>{details.name}</li>
+      <li>{details.weapon}</li>
+      <li>{details.vessel}</li>
       </ul>
+      </div>
       )
   }
+}
+
+export default Pirate;
 ```
 
 Test again using the form.
 
-
-
-
 ### Load sample data via PirateForm
-
-* PirateForm
-
-`<button onClick={this.props.loadSamples}>Load Sample Pirates</button>`:
-
-```
-  render() {
-    return (
-      <div className="pirate-form">
-      <h3>Pirate Forms</h3>
-      <AddPirateForm addPirate={this.props.addPirate} />
-      <button onClick={this.props.loadSamples}>Load Sample Pirates</button>
-      </div>
-      )
-  }
-```
 
 * App.js:
 
@@ -939,6 +855,22 @@ We can use a button in App.js:
 ```
 
 Delete and try in `PirateForm`.
+
+* PirateForm
+
+`<button onClick={this.props.loadSamples}>Load Sample Pirates</button>`:
+
+```
+render() {
+  return (
+    <div className="pirate-form">
+    <h3>Pirate Forms</h3>
+    <AddPirateForm addPirate={this.props.addPirate} />
+    <button onClick={this.props.loadSamples}>Load Sample Pirates</button>
+    </div>
+    )
+}
+```
 
 Add `loadSamples={this.loadSamples}` to props.
 
@@ -980,26 +912,6 @@ class PirateForm extends Component {
 }
 ```
 
-Examine CSS to layout properly.
-
-```
-class Pirate extends Component {
-  render(){
-    const {details} = this.props;
-    return (
-      <div className="pirate">
-      <ul>
-        <li>{details.name}</li>
-        <li>{details.weapon}</li>
-        <li>{details.vessel}</li>
-      </ul>
-      </div>
-      )
-  }
-}
-```
-
-
 ### Remove Pirate
 
 New function in App:
@@ -1024,7 +936,9 @@ $r (App)
 $r.removePirate('pirate1')
 ```
 
-On Pirate in App `removePirate = {this.removePirate}`:
+Pass the prop to `Pirate` in App using `removePirate = {this.removePirate}`:
+
+* App
 
 ```
 {
@@ -1045,11 +959,11 @@ removePirate={this.removePirate}
 loadSamples={this.loadSamples} />
 ```
 
-* PirateFrom 
+* PirateForm 
 
 `<button onClick={() => this.props.removePirate('pirate1')}>RemovePirate</button>`
 
-This only removes pirate1.
+Test. This only removes pirate1.
 
 Add it to the `Pirate` component.
 
@@ -1062,7 +976,7 @@ return (
     <li>{details.name}</li>
     <li>{details.weapon}</li>
     <li>{details.vessel}</li>
-    <button onClick={() => this.props.removePirate('pirate1')}>RemovePirate</button>
+    <button onClick={() => this.props.removePirate('pirate1')}>X</button>
   </ul>
   </div>
   )
@@ -1092,17 +1006,19 @@ Pirate.js (only allowable elment as child of <ul> is <li>).
 * Pirate
 
 ```
-return (
   <ul>
     <li>{details.name}</li>
     <li>{details.weapon}</li>
     <li>{details.vessel}</li>
     <li><button onClick={() => this.props.removePirate(this.props.index)}>X</button></li>
   </ul>
-  )
 ```
 
 Now we can add and delete any pirate. 
+
+
+
+
 
 ### Persisting the Data
 
