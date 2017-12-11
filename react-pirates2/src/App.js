@@ -1,21 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header from './components/Header';
+import PirateForm from './components/PirateForm';
+import Pirate from './components/Pirate';
+import piratesFile from './data/sample-pirates-object';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
 
-export default App;
+  constructor() {
+    super();
+      this.addPirate = this.addPirate.bind(this)
+        this.loadSamples = this.loadSamples.bind(this)
+          this.state = {
+            pirates: {}
+          }
+        }
+
+        loadSamples(){
+          this.setState({
+            pirates: piratesFile
+          })
+        }
+
+
+        addPirate(pirate){
+          const pirates = {...this.state.pirates}
+          const timestamp = Date.now()
+          pirates[`pirate-${timestamp}`] = pirate
+          this.setState({ pirates: pirates })
+        }
+
+        render() {
+          return (
+            <div className="App">
+            <Header />
+            <button onClick={this.loadSamples}>Load Sample Pirates</button>
+            {
+              Object
+              .keys(this.state.pirates)
+              .map( key => <Pirate key={key} details={this.state.pirates[key]} /> )
+            }
+            <PirateForm addPirate={this.addPirate} loadSamples={this.loadSamples} />
+            </div>
+            );
+          }
+        }
+
+        export default App;

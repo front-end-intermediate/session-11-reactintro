@@ -9,6 +9,8 @@
 * http://exploringjs.com/es6/ (specifically http://exploringjs.com/es6/ch_core-features.html#sec_from-constr-to-class and http://exploringjs.com/es6/ch_classes.html#ch_classes)
 * Book marking the [Create React App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-stylesheet) notes is also a very good idea. Please skim them.
 
+====
+
 ```bash
 $ create-react-app react-pirates
 ```
@@ -30,24 +32,27 @@ see `reference/classes`
 App.js > Header.js:
 
 1. logo: {logo}: JSX
-3. class → className: JSX
-4. xhtml style closing tags: JSX
+1. class → className: JSX
+1. xhtml style closing tags: JSX
+
+Use a code highlighter suitable for react. In sublime you can use the [Babel](https://packagecontrol.io/packages/Babel) package.
 
 Examine CSS: 
 
 1. injected via Webpack:`<style>`
-2. multiple `<style>` tags (advantages?)
-3. note prefixing in output
+1. note prefixing in output
 
-Nesting:
+### Nesting
 
-Add `<p>test</p>` above div in Header.js
+* App.js
 
-Comments:
+Add `<p>test</p>` above div to see error.
+
+### Comments
+
+A snippet is [available](http://wesbos.com/react-jsx-comments/) for sublime text.
 
 `{/* <img src={logo} className="logo" alt="logo" /> */}` 
-
-<!-- See http://wesbos.com/react-jsx-comments/ -->
 
 Note - to use Emmet run - `ctrl-e`
 
@@ -62,7 +67,7 @@ Import our fonts.
 
 Add some formatting in a new directory.
 
-* src/assets/css/app.css:
+* App.css
 
 ```
 .App-header {
@@ -123,7 +128,7 @@ import Pirate from './components/Pirate';
 In the render function:
 
 ```
-<Pirate tagline="Ahoy there Matey!" />
+<Pirate tagline="Ahoy from the Pirate Component" />
 ```
 
 * Pirate.js
@@ -143,7 +148,23 @@ export default Pirate;
 
 ```
 
-In src/assets/css add a new css file.
+### React tool
+
+Inspect using React tool.
+
+Examine component structure (nesting). Use the form. Examine and map each component.
+
+Native: `$0`
+
+React: `$r`
+
+Select <Pirate />
+
+Console: `$r.props`
+
+## CSS
+
+In a new folder, src/assets/css add a new css file.
 
 * Pirate.css
 
@@ -165,23 +186,19 @@ Import it into the Pirate component and add any needed className to the jsx.
 
 `import '../assets/css/Pirate.css'`
 
-### React tool
-
-Inspect using React tool.
-
-Examine component structure (nesting). Use the form. Examine and map each component.
-
-Native: `$0`
-
-React: `$r`
-
-Select <Pirate />
-
-Console: `$r.props`
+```
+render(){
+    return (
+      <div className='pirate'>
+        <p>{this.props.tagline}</p>
+      </div>
+      )
+  }
+```
 
 ## Create a Header component
 
-Note link to image and commented line.
+Note link to image and commented line. Assets are available in the reference folder.
 
 * Header
 
@@ -194,15 +211,13 @@ class Header extends React.Component {
     return (
       <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h2>Pirate List</h2>
+        <h2>Header Component</h2>
       </div>)
     }
   }
 
 export default Header;
 ```
-
-Create an assets/img directory with the svg file.
 
 Import Header.js into App.js
 
@@ -212,18 +227,28 @@ Import Header.js into App.js
 
 `import Header from './components/Header';`
 
-Add it to the render method.
+Add it to App.js's render method, replacing the current header.
 
 * App.js
 
-```
-return (
-  <div className="App">
-  <Header />
+```jsx
+import React, { Component } from 'react';
+import Header from './components/Header';
+import Pirate from './components/Pirate';
+import './App.css';
 
-  ...
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <Pirate tagline="Ahoy from the Pirate component" />
+      </div>
+    );
+  }
+}
 
-  )
+export default App;
 ```
 
 Add css for the header.
@@ -245,7 +270,7 @@ Add css for the header.
 
 h1 {
     font-family: 'Pirata One', cursive;
-    font-size: 5rem;
+    font-size: 2rem;
     color: #C90813;
     line-height: 1.1;
 }
@@ -257,20 +282,9 @@ Import in into the Header component.
 
 `import '../assets/css/Header.css';`
 
-Note that to remove the spinning anchor we must use jsx comments:
-
-* Header
-
-```
-{/* <img src={logo} className="logo" alt="logo" /> */}
-```
-
-Remove the import as well.
-
-
+Make any adjustments to the JSX and comment out the spinning anchor.
 
 <!-- `import samplePirates from './sample-pirates';` -->
-
 
 ## Adding Pirates
 
@@ -284,7 +298,7 @@ class PirateForm extends React.Component {
   render(){
     return (
       <div>
-      <h3>Pirate Forms</h3>
+      <h3>Pirate Form Component</h3>
       <AddPirateForm />
       </div>
       )
@@ -294,9 +308,13 @@ class PirateForm extends React.Component {
 export default PirateForm;
 ```
 
-State / Data binding
+Note the import statement and JSX.
 
-AddPirateForm.js
+## State / Data binding
+
+Create an AddPirateForm in components.
+
+* AddPirateForm.js
 
 ```
 import React, { Component } from 'react';
@@ -317,17 +335,27 @@ class AddPirateForm extends React.Component {
 export default AddPirateForm;
 ```
 
+Import and add it to the JSX.
+
 * App.js
 
 ```
-import PirateForm from './PirateForm';
+import PirateForm from './components/PirateForm';
 
 ...
 
-<PirateForm />
+    return (
+      <div className="App">
+        <Header />
+        <Pirate tagline="Ahoy from the Pirate component" />
+        <PirateForm />
+      </div>
+    );
 ```
 
 ## Method - createPirate
+
+* AddPirateForm - add
 
 `<form onSubmit={(e) => this.createPirate(e)}>`:
 
@@ -342,18 +370,20 @@ return (
   )
 ```
 
-In AddPirateForm (a method on the class):
+In AddPirateForm create a method on the class.
+
+* AddPirateForm
 
 ```
 createPirate(event) {
   event.preventDefault();
-  console.log('make a pirate')
+  console.log('making a pirate')
 }
 ```
 
-Test
+Test.
 
-Add `refs` to the form to store references to the input:
+Add [refs](https://facebook.github.io/react/docs/refs-and-the-dom.html) to the form to store references to the input:
 
 ```
 <form onSubmit={(e) => this.createPirate(e)}>
@@ -373,6 +403,7 @@ Create a `pirate` object.
 ```js
 createPirate(event) {
   event.preventDefault();
+  console.log('making a pirate')
   const pirate = {
     name: this.name.value,
     vessel: this.vessel.value,
@@ -425,9 +456,11 @@ We are running createPirate() but not doing anything with it.
 
 ### Get the pirate object into state. 
 
-The key difference between props and state is that state is internal and controlled by the component itself, while props are external and controlled by whatever renders the component. - [ref](http://buildwithreact.com/tutorial/state)
+The key difference between props and [state](https://facebook.github.io/react-native/docs/state.html) is that state is internal and controlled by the component itself, while props are external and controlled by whatever renders the component. - [ref](http://buildwithreact.com/tutorial/state)
 
-We initialize state in App.js:
+We initialize state in App.js.
+
+* App
 
 ```
 class App extends Component {
@@ -440,9 +473,11 @@ class App extends Component {
   }
 ```
 
-React tools, find App, view state.
+In React tools, find App, view state.
 
-And add to App.js:
+And add a method to App.js using the date method to create a unique identifier.
+
+* App
 
 ```
   addPirate(pirate){
@@ -685,7 +720,9 @@ Unlike Angular there are no built in loops, repeats etc. You must use regular JS
 
 1: Using a JSON Array in Pirate.js
 
-Examine sample json file in the `data` folder in `src` using:
+Add the data folder from the reference folder to src.
+
+Examine the sample files in the `data` folder.
 
 JSON.stringify(<data-that-you-want-to-stringify>,<replacer-function-null>,<indentation>)
 
@@ -699,7 +736,7 @@ Pirate.js:
 
 ```js
 import React, { Component } from 'react'
-// import './css/Pirate.css'
+import '../assets/css/Pirate.css'
 import piratesFile from '../data/sample-pirates-array'
 
 class Pirate extends React.Component {
@@ -734,7 +771,7 @@ Example: Doubling numbers:
 
 See also [session-1](https://github.com/mean-spring-2017/session-1/blob/master/_Arrays/array-methods.html)
 
-Pirate.js:
+* Pirate.js:
 
 ```
 render(){
@@ -754,32 +791,27 @@ render(){
 
 2: With an Object
 
-Switch the json out for the .js version of samples, remove the import (`import piratesFile from './data/sample-pirates'`) and rollback to:
+Switch the array out for the object version of the pirate samples, remove the import (`import piratesFile from './data/sample-pirates'`) and rollback to:
 
 ```
-class Pirate extends React.Component {
-  render(){
-    return (
-      <ul>
-      <li>Pirate</li>
-      </ul>
-      )
-  }
+render(){
+  return (
+    <ul>
+    <li>Pirate</li>
+    </ul>
+    )
 }
 ```
 
-This time in `App.js` :
+This time we will import the data into `App.js` 
+
+* App
 
 ```
 import piratesFile from './data/sample-pirates-object'
 ```
 
 (Check for errors - might need to recompile by stopping and starting npm.)
-
-```
-import piratesFile from './data/sample-pirates-object'
-console.log(piratesFile)
-```
 
 ### Object.keys()
 
@@ -794,15 +826,24 @@ Use `Object.keys()`  [Mozilla](https://developer.mozilla.org/en-US/docs/Web/Java
 
 We will 'massage' the <Pirate /> component in App.js to enable the use of .map().
 
-App.js:
+* App.js:
 
 ```
-<ul>
-{
-  Object.keys(this.state.pirates)
-  .map( key => <Pirate key={key} /> )
-}
-</ul>
+      render() {
+        return (
+          <div className="App">
+          <Header />
+          <ul>
+          {
+            Object.keys(this.state.pirates)
+            .map( key => <Pirate key={key} /> )
+          }
+          </ul>
+          <PirateForm addPirate={this.addPirate} />
+          </div>
+          );
+        }
+      }
 ```
 
 and use the key to pass a details prop to the Pirate component:
@@ -847,12 +888,12 @@ Simplify and add a few more properties:
 
 Test again using the form.
 
-Examine diffs in Code.
+
 
 
 ### Load sample data via PirateForm
 
-PirateForm:
+* PirateForm
 
 `<button onClick={this.props.loadSamples}>Load Sample Pirates</button>`:
 
@@ -868,7 +909,7 @@ PirateForm:
   }
 ```
 
-App.js:
+* App.js:
 
 We've already imported: `import piratesFile from './sample-pirates-object'`
 
@@ -906,23 +947,21 @@ Add `loadSamples={this.loadSamples}` to props.
 `<PirateForm addPirate={this.addPirate} loadSamples={this.loadSamples} />`:
 
 ```
-    return (
-      <div className="App">
-      <Header />
-      {
-        Object
-        .keys(this.state.pirates)
-        .map( key => <Pirate key={key} details={this.state.pirates[key]} /> )
-      }
-
-
-<!-- ??? -->
-      <PirateForm addPirate={this.addPirate} />
-<!-- ??? -->
-
-
-      </div>
-      )
+render() {
+  return (
+    <div className="App">
+    <Header />
+    <button onClick={this.loadSamples}>Load Sample Pirates</button>
+    {
+      Object
+      .keys(this.state.pirates)
+      .map( key => <Pirate key={key} details={this.state.pirates[key]} /> )
+    }
+    <PirateForm addPirate={this.addPirate} loadSamples={this.loadSamples} />
+    </div>
+    );
+  }
+}
 ```
 
 PirateForm (done):
