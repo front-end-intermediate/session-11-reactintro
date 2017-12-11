@@ -2,6 +2,12 @@
 
 ## Homework
 
+For you final project you can convert your midterm to Angular 4 using the files we have worked on.
+
+Be sure to add a navigation and routing as outline in session 10 notes.
+
+You may also create a version of the recipes list and details in React.
+
 * Spend some quality time with the exercises on [Built with React](http://buildwithreact.com) (do the Tutorial).
 
 ## Reading
@@ -10,7 +16,7 @@
 
 * Book marking the [Create React App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-stylesheet) notes is also a very good idea. Please skim them.
 
-====
+## Create a React Project
 
 ```bash
 $ create-react-app react-pirates
@@ -983,15 +989,15 @@ Pass it along as part of the Pirate component `index={key}` in App.
 
 Now we can add and delete any pirate. 
 
-
-// Stop Here
-
-
 ### Persisting the Data
+
+I will demo this first using my db on Firebase.
+
+
 
 Create an account at https://firebase.google.com/
 
-Create a new project called firstname-lastname-pirates
+Create a new project called `<firstname>-<lastname>-pirates`
 
 Go to the empty database (left hand menu)
 
@@ -1032,6 +1038,9 @@ const base = Rebase.createClass({
 [Rebase](https://www.npmjs.com/package/rebase) is a simple utility that we are going to need to massage strings.
 
 <!-- `$ npm install rebase --save` -->
+`$ npm install re-base@2.2.0 --save`
+
+or just add to your package.json:
 
 "re-base": "2.2.0"
 
