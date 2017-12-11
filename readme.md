@@ -1,4 +1,4 @@
-# Session Eleven
+# Session Eleven (updated)
 
 ## Homework
 
@@ -7,6 +7,7 @@
 ## Reading
 
 * http://exploringjs.com/es6/ (specifically http://exploringjs.com/es6/ch_core-features.html#sec_from-constr-to-class and http://exploringjs.com/es6/ch_classes.html#ch_classes)
+
 * Book marking the [Create React App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-stylesheet) notes is also a very good idea. Please skim them.
 
 ====
@@ -17,17 +18,13 @@ $ create-react-app react-pirates
 
 Move the `data` and `assets` folders from reference to the `src` directory in `react-pirates`.
 
-```
+```bash
 $ cd react-pirates
 ```
 
-```
+```bash
 npm run start
 ```
-
-## ES6 Classes
-
-see `reference/classes`
 
 ### JSX
 
@@ -261,7 +258,7 @@ export default PirateForm;
 
 Note the import statement and JSX.
 
-Create an AddPirateForm in components.
+Create another component - AddPirateForm in components.
 
 * AddPirateForm.js
 
@@ -302,7 +299,13 @@ import PirateForm from './components/PirateForm';
     );
 ```
 
-## Method - createPirate
+Import the css into AddPirateForm.
+
+* AddPirateForm
+
+`import '../assets/css/AddPirateForm.css'`
+
+## Adding Methods
 
 * AddPirateForm - add
 
@@ -318,12 +321,6 @@ return (
   </form>
   )
 ```
-
-Import the css into AddPirateForm.
-
-* AddPirateForm
-
-`import './assets/css/AddPirateForm.css'`
 
 In AddPirateForm create a method on the class.
 
@@ -355,7 +352,7 @@ Create a `pirate` object.
 
 * AddPirateForm:
 
-```js
+```jsx
 createPirate(event) {
   event.preventDefault();
   console.log('making a pirate')
@@ -369,44 +366,6 @@ createPirate(event) {
 ```
 
 Test by entering a pirate in the form.
-
-## State / Data binding
-
-In AddPirateForm.js we created a method - createPirate()
-
-And within, a pirate variable:
-
-```
-  createPirate(event){
-    event.preventDefault()
-    console.log('making a pirate')
-    const pirate = {
-      name: this.name.value,
-      vessel: this.vessel.value,
-      weapon: this.weapon.value
-    }
-    console.log(pirate)
-  }
-```
-
-Added [refs](https://facebook.github.io/react/docs/refs-and-the-dom.html) to the form to store references to the input.
-
-```
-<input ref={(input) => this.name = input } type="text" placeholder="Pirate name" />
-```
-
-When we submit we need to put the contents of the form into our const pirate object.
-
-```
-<form onSubmit={(e) => this.createPirate(e)}>
-<input ref={(input) => this.name = input } type="text" placeholder="Pirate name" />
-<input ref={(input) => this.vessel = input } type="text" placeholder="Pirate vessel" />
-<input ref={(input) => this.weapon = input } type="text" placeholder="Pirate weapon" />
-<button type="submit">Add Pirate</button>
-</form>
-```
-
-We are running createPirate() but not doing anything with it.
 
 
 ## State
@@ -429,6 +388,8 @@ class App extends Component {
     }
   }
 ```
+
+For super see `reference/classes`
 
 In React tools, find App, view state.
 
@@ -467,7 +428,11 @@ App.js:
   }
 ```
 
+React does not implicitly bind the methods to the component itself. You need to bind them. Inside the constructor `this` is bound to the app component.
+
 ### Review
+
+Super extends the app component. 
 
 Review super in classes:
 
@@ -486,18 +451,18 @@ See:
 
 Our createPirate function in AddPirateForm is called and works but it does not save the new pirate anywhere. 
 
-We now have an addPirate function in App.js:
+We now have an `addPirate` function in App.js:
 
 ```
-  addPirate(pirate){
-    //update state
-    const pirates = {...this.state.pirates}
-    //add new pirate
-    const timestamp = Date.now()
-    pirates[`pirate-${timestamp}`] = pirate
-    //set state
-    this.setState({ pirates: pirates })
-  }
+addPirate(pirate){
+  //update state
+  const pirates = {...this.state.pirates}
+  //add new pirate
+  const timestamp = Date.now()
+  pirates[`pirate-${timestamp}`] = pirate
+  //set state
+  this.setState({ pirates: pirates })
+}
 ```
 
 Unlike the createPirate function, it stores the new pirate in state. Test with App in React tool:
@@ -660,18 +625,18 @@ JSON.stringify(<data-that-you-want-to-stringify>,<replacer-function-null>,<inden
 `<pre><code>{ JSON.stringify(piratesFile, null, 4)}</code></pre>`:
 
 ```jsx
-import React, { Component } from 'react'
-import '../assets/css/Pirate.css'
+import React, { Component } from 'react';
 import piratesFile from '../data/sample-pirates-array'
+import '../assets/css/Pirate.css'
 
 class Pirate extends React.Component {
   render(){
     return (
-      <ul>
-        <li>
-          <pre><code>{ JSON.stringify(piratesFile, null, 4)}</code></pre>
-        </li>
-      </ul>
+      <div className='pirate'>
+        <ul>
+          <li><pre><code>{ JSON.stringify(piratesFile, null, 4)}</code></pre></li>
+        </ul>
+      </div>
       )
   }
 }
@@ -712,7 +677,9 @@ See also [session-1](https://github.com/mean-spring-2017/session-1/blob/master/_
 
 2: With an Object
 
-Switch the array out for the object version of the pirate samples, remove the import (`import piratesFile from './data/sample-pirates'`) and rollback to:
+Switch the array out for the object version of the pirate samples, remove the import (`import piratesFile from './data/sample-pirates'`) and rollback.
+
+* Pirate
 
 ```
 import React, { Component } from 'react';
@@ -731,7 +698,7 @@ class Pirate extends React.Component {
 export default Pirate;
 ```
 
-This time we will import the data into `App.js` 
+This time we will import the data into `App.js` as an object.
 
 * App
 
@@ -771,7 +738,7 @@ render() {
     </div>
     );
   }
-}
+
 ```
 
 and use the key to pass a details prop to the Pirate component:
@@ -912,6 +879,8 @@ class PirateForm extends Component {
 }
 ```
 
+Now you can load sample pirates from pirateform
+
 ### Remove Pirate
 
 New function in App:
@@ -936,7 +905,9 @@ $r (App)
 $r.removePirate('pirate1')
 ```
 
-Pass the prop to `Pirate` in App using `removePirate = {this.removePirate}`:
+Remove pirates from the pirate component.
+
+Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 
 * App
 
@@ -961,7 +932,7 @@ loadSamples={this.loadSamples} />
 
 * PirateForm 
 
-`<button onClick={() => this.props.removePirate('pirate1')}>RemovePirate</button>`
+`<button onClick={() => this.props.removePirate('pirate1')}>X</button>`
 
 Test. This only removes pirate1.
 
@@ -976,13 +947,11 @@ return (
     <li>{details.name}</li>
     <li>{details.weapon}</li>
     <li>{details.vessel}</li>
-    <button onClick={() => this.props.removePirate('pirate1')}>X</button>
+    <li><button onClick={() => this.props.removePirate('pirate1')}>X</button></li>
   </ul>
   </div>
   )
 ```
-
-N.B. You cannot access a key inside a component
 
 Load pirates and examine the state in App.
 
@@ -1001,8 +970,6 @@ Pass it along as part of the Pirate component `index={key}` in App.
 }
 ```
 
-Pirate.js (only allowable elment as child of <ul> is <li>).
-
 * Pirate
 
 ```
@@ -1017,7 +984,7 @@ Pirate.js (only allowable elment as child of <ul> is <li>).
 Now we can add and delete any pirate. 
 
 
-
+// Stop Here
 
 
 ### Persisting the Data
@@ -1064,7 +1031,9 @@ const base = Rebase.createClass({
 
 [Rebase](https://www.npmjs.com/package/rebase) is a simple utility that we are going to need to massage strings.
 
-`$ npm install rebase --save`
+<!-- `$ npm install rebase --save` -->
+
+"re-base": "2.2.0"
 
 Add domain, database URL, API key.
 
