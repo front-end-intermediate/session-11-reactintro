@@ -53,16 +53,16 @@ npm run start
 
 Import our fonts.
 
-* public / index.html
+* public/index.html
 
 ```
 <link href="https://fonts.googleapis.com/css?family=Pirata+One" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
 ```
 
-Add some formatting
+Add some formatting in a new directory.
 
-* App.css:
+* src/assets/css/app.css:
 
 ```
 .App-header {
@@ -73,9 +73,30 @@ Add some formatting
 }
 ```
 
+* index.css
+
+```
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 100%;
+  background: #f6f6f6;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Trade Winds', cursive;
+  font-size: 2rem;
+}
+
+```
+
 ### Components
 
-* Pirate.js
+In a new components folder.
+
+* src/components/Pirate.js
 
 ```
 import React, { Component } from 'react';
@@ -96,8 +117,10 @@ export default Pirate;
 * App.js
 
 ```
-import Pirate from './Pirate';
+import Pirate from './components/Pirate';
 ```
+
+In the render function:
 
 ```
 <Pirate tagline="Ahoy there Matey!" />
@@ -120,6 +143,28 @@ export default Pirate;
 
 ```
 
+In src/assets/css add a new css file.
+
+* Pirate.css
+
+```
+.pirate ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+.pirate ul li {
+  flex: 1;
+}
+```
+
+Import it into the Pirate component and add any needed className to the jsx.
+
+* Pirate
+
+`import '../assets/css/Pirate.css'`
+
 ### React tool
 
 Inspect using React tool.
@@ -137,6 +182,8 @@ Console: `$r.props`
 ## Create a Header component
 
 Note link to image and commented line.
+
+* Header
 
 ```
 import React, { Component } from 'react';
@@ -157,11 +204,70 @@ export default Header;
 
 Create an assets/img directory with the svg file.
 
-Import Header.js into App.js and load some sample data.
+Import Header.js into App.js
+
+<!-- and load some sample data. -->
 
 * App.js:
 
-`import Header from './Header';`
+`import Header from './components/Header';`
+
+Add it to the render method.
+
+* App.js
+
+```
+return (
+  <div className="App">
+  <Header />
+
+  ...
+
+  )
+```
+
+Add css for the header.
+
+* Header.css
+
+```
+.logo {
+    height: 200px;
+}
+
+.header {
+    height: 220px;
+    padding: 20px;
+    color: #333;
+    background: #bada55 url(../img/hero.png) 100% 50% no-repeat;
+    background-size: 50%;
+}
+
+h1 {
+    font-family: 'Pirata One', cursive;
+    font-size: 5rem;
+    color: #C90813;
+    line-height: 1.1;
+}
+```
+
+Import in into the Header component.
+
+* Header
+
+`import '../assets/css/Header.css';`
+
+Note that to remove the spinning anchor we must use jsx comments:
+
+* Header
+
+```
+{/* <img src={logo} className="logo" alt="logo" /> */}
+```
+
+Remove the import as well.
+
+
 
 <!-- `import samplePirates from './sample-pirates';` -->
 
@@ -485,6 +591,8 @@ We have refs on the input fields. When we click "Add Pirate" the form still hold
 
 Empty the form with a [ref](https://facebook.github.io/react/docs/refs-and-the-dom.html#adding-a-ref-to-a-class-component).
 
+* AddPirateFrom
+
 `<form ref={ (input)=>this.pirateForm = input } onSubmit={(e) => this.createPirate(e)}>`:
 
 ```
@@ -515,6 +623,38 @@ createPirate(event) {
 ```
 
 The form should now empty and the addPirate function is called to store our pirate in state.
+
+* AddPirateFrom.css
+
+```css
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+button {
+  background: #007eb6;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 40%;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+}
+```
+
+Import the css into AddPirateForm.
+
+* AddPirateForm
+
+`import './css/AddPirateForm.css'`
 
 ## Displaying Pirates
 
@@ -730,7 +870,7 @@ PirateForm:
 
 App.js:
 
-We've already imported: `import piratesFile from './sample-pirates'`
+We've already imported: `import piratesFile from './sample-pirates-object'`
 
 ```
 loadSamples(){
@@ -759,7 +899,9 @@ We can use a button in App.js:
 
 Delete and try in `PirateForm`.
 
-Add `loadSamples={this.loadSamples}` to props:
+Add `loadSamples={this.loadSamples}` to props.
+
+* App.js
 
 `<PirateForm addPirate={this.addPirate} loadSamples={this.loadSamples} />`:
 
@@ -772,7 +914,13 @@ Add `loadSamples={this.loadSamples}` to props:
         .keys(this.state.pirates)
         .map( key => <Pirate key={key} details={this.state.pirates[key]} /> )
       }
+
+
+<!-- ??? -->
       <PirateForm addPirate={this.addPirate} />
+<!-- ??? -->
+
+
       </div>
       )
 ```
@@ -784,7 +932,7 @@ class PirateForm extends Component {
   render() {
     return (
       <div className="pirate-form">
-      <h3>Pirate Forms</h3>
+      <h3>Pirate Form Component</h3>
       <AddPirateForm addPirate={this.props.addPirate} />
       <button onClick={this.props.loadSamples}>Load Sample Pirates</button>
       </div>
@@ -858,6 +1006,8 @@ removePirate={this.removePirate}
 loadSamples={this.loadSamples} />
 ```
 
+* PirateFrom 
+
 `<button onClick={() => this.props.removePirate('pirate1')}>RemovePirate</button>`
 
 This only removes pirate1.
@@ -883,7 +1033,9 @@ N.B. You cannot access a key inside a component
 
 Load pirates and examine the state in App.
 
-Pass it along as part of the Pirate component `index={key}` in App:
+Pass it along as part of the Pirate component `index={key}` in App.
+
+* App
 
 ```
 {
@@ -896,7 +1048,9 @@ Pass it along as part of the Pirate component `index={key}` in App:
 }
 ```
 
-Pirate.js (only allowable elment as child of <ul> is <li>):
+Pirate.js (only allowable elment as child of <ul> is <li>).
+
+* Pirate
 
 ```
 return (
@@ -908,6 +1062,8 @@ return (
   </ul>
   )
 ```
+
+Now we can add and delete any pirate. 
 
 ### Persisting the Data
 

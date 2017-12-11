@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
-// import './css/Pirate.css'
+import '../assets/css/Pirate.css'
 // import piratesFile from '../data/sample-pirates-array'
 
 class Pirate extends React.Component {
-	render(){
-		return (
-			<ul>
-			<li>Pirate</li>
-			</ul>
-			)
-	}
+render(){
+    const {details} = this.props;
+    return (
+    	<div className="pirate">
+      <ul>
+        <li>{details.name}</li>
+        <li>{details.weapon}</li>
+        <li>{details.vessel}</li>
+        <li>
+        <button 
+        onClick={() => this.props.removePirate(this.props.index)}>X</button>
+        </li>
+      </ul>
+      </div>
+      )
+  }
 }
 
 export default Pirate;

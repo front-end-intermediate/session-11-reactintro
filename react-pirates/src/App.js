@@ -10,7 +10,9 @@ class App extends Component {
 
   constructor() {
     super();
-    this.addPirate = this.addPirate.bind(this);
+    this.addPirate = this.addPirate.bind(this)
+    this.loadSamples = this.loadSamples.bind(this)
+    this.removePirate = this.removePirate.bind(this)
     this.state = {
       pirates: {}
     }
@@ -26,20 +28,40 @@ class App extends Component {
     this.setState({ pirates: pirates })
   }
 
+  removePirate(key){
+    const pirates = {...this.state.pirates}
+    delete pirates[key]
+    this.setState({pirates})
+  }
+
   render() {
     return (
       <div className="App">
       <Header />
+
       <ul>
       {
         Object.keys(this.state.pirates)
-        .map( key => <Pirate key={key} /> )
+        .map( key => <Pirate key={key} 
+          index={key} 
+          details={this.state.pirates[key]} 
+          removePirate={this.removePirate}
+          /> )
       }
       </ul>
-      
-      <PirateForm addPirate={this.addPirate} />
+      <button onClick={this.loadSamples}>Load Sample Pirates</button>
+      <PirateForm 
+        addPirate={this.addPirate} 
+        removePirate={this.removePirate} 
+        loadSamples={this.loadSamples} />
       </div>
       );
+  }
+
+  loadSamples(){
+    this.setState({
+      pirates: piratesFile
+    })
   }
 }
 

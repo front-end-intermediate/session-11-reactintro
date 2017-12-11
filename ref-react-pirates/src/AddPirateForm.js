@@ -5,7 +5,6 @@ class AddPirateForm extends Component {
 
   createPirate(event){
     event.preventDefault()
-    console.log('making a pirate')
     const pirate = {
       name: this.name.value,
       vessel: this.vessel.value,
