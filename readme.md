@@ -2,9 +2,9 @@
 
 ## Homework
 
-For your final project you can convert your midterm to Angular 4 using the files we have worked on. You have the option to customize the content and functionality as you see fit. Be sure to add form validation, navigation and routing as outlined in session 10.
+For your final project you have the option of converting your midterm to Angular 4 using the files we have worked on. You have the option to customize the content and functionality as you see fit. Be sure to add form validation, navigation and routing as outlined in session 10. This would be your choice if you needed to pursue Angular for personal or professional reasons.
 
-I strongly recommand doing the standard [Heroes](https://angular.io/tutorial) tutorial before beginning.
+I strongly recommand doing the standard Angular [Heroes](https://angular.io/tutorial) tutorial before beginning to fill in any blanks.
 
 You may also create a version of the recipes list and details pages in React.
 
@@ -882,26 +882,26 @@ Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 
 * App
 
-```
+```js
 {
   Object
   .keys(this.state.pirates)
-  .map( key => <Pirate key={key} 
-    details={this.state.pirates[key]} 
+  .map( key => <Pirate key={key}
+    details={this.state.pirates[key]}
     removePirate={this.removePirate} /> )
 }
 ```
 
 Pass the prop to `PirateForm` from App:
 
-```
-<PirateForm 
-addPirate={this.addPirate} 
-removePirate={this.removePirate} 
+```js
+<PirateForm
+addPirate={this.addPirate}
+removePirate={this.removePirate}
 loadSamples={this.loadSamples} />
 ```
 
-* PirateForm 
+* PirateForm
 
 `<button onClick={() => this.props.removePirate('pirate1')}>X</button>`
 
@@ -952,15 +952,13 @@ Pass it along as part of the Pirate component `index={key}` in App.
   </ul>
 ```
 
-Now we can add and delete any pirate. 
+Now we can add and delete any pirate.
 
 ### Persisting the Data
 
 I will demo this first using my db on Firebase.
 
-
-
-Create an account at https://firebase.google.com/
+Create an account at `https://firebase.google.com/`
 
 Create a new project called `<firstname>-<lastname>-pirates`
 
@@ -968,7 +966,7 @@ Go to the empty database (left hand menu)
 
 Go to rules:
 
-```
+```js
 {
   "rules": {
     ".read": "auth != null",
@@ -1154,11 +1152,6 @@ class Main extends React.Component {
 
 We probably want the routing to occur in App.js to keep the header and replace <Pirate /> and PirateForm />
 
-
-
-
-
-
 ### Validation Homework
 
 Note the dependencies in package.json.
@@ -1203,7 +1196,7 @@ Give the input a name. Add a paragraph with ng-show conditions.
 </div>
 ```
 
-Note the svg. 
+Note the svg.
 
 ```css
 .error {
@@ -1293,54 +1286,6 @@ input:focus + .icon {
 }
 ```
 
-
-See https://www.w3schools.com/angular/angular_validation.asp for a complete set of examples for Angular validation.
-
-
-
-
-
+See `https://www.w3schools.com/angular/angular_validation.asp` for a complete set of examples for Angular validation.
 
 ### Notes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

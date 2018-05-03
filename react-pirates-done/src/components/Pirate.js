@@ -12,6 +12,7 @@ class Pirate extends React.Component {
     const {details} = this.props;
     return (
       <div className='pirate'>
+      <h2>Pirate Component</h2>
       <ul>
       <li>{details.name}</li>
       <li>{details.weapon}</li>

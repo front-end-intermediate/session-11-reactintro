@@ -19,12 +19,16 @@ class AddPirateForm extends React.Component {
 
   render(){
     return (
+      <div>
+      <h2>Add Pirate Form Component</h2>
       <form ref={(input)=>this.pirateForm = input } onSubmit={(e) => this.createPirate(e)}>
       <input ref={(input) => this.name = input } type="text" placeholder="Pirate name" />
       <input ref={(input) => this.vessel = input } type="text" placeholder="Pirate vessel" />
       <input ref={(input) => this.weapon = input } type="text" placeholder="Pirate weapon" />
       <button type="submit">Add Pirate</button>
       </form>
+      <h2>End Add Pirate Form Component</h2>
+      </div>
       )
   }
 }
