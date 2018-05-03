@@ -2,13 +2,13 @@
 
 ## Homework
 
-For your final project you can convert your midterm to Angular 4 using the files we have worked on. You have the option to customize the content and functionality as you see fit.
+For your final project you can convert your midterm to Angular 4 using the files we have worked on. You have the option to customize the content and functionality as you see fit. Be sure to add form validation, navigation and routing as outlined in session 10.
 
-Be sure to add form validation, navigation and routing as outlined in session 10.
-
-I strongly recommand doing the standard *Heroes* tutorial before beginning.
+I strongly recommand doing the standard [Heroes](https://angular.io/tutorial) tutorial before beginning.
 
 You may also create a version of the recipes list and details pages in React.
+
+Of course, if you wish you can do something entirely original.
 
 * Spend some quality time with the exercises on [Built with React](http://buildwithreact.com) (do the Tutorial).
 
@@ -870,7 +870,7 @@ Add to the constructor in App:
 this.removePirate = this.removePirate.bind(this)
 ```
 
-$r (App)
+`$r` App to see the 
 
 ```js
 $r.removePirate('pirate1')
