@@ -769,7 +769,11 @@ Test again using the form.
 
 * `App.js`:
 
-We've already imported: `import piratesFile from './sample-pirates-object'`
+Import the sample pirates as `piratesFile`: 
+
+`import piratesFile from './data/sample-pirates-object'`
+
+Let's create a method:
 
 ```js
 loadSamples(){
@@ -778,6 +782,8 @@ loadSamples(){
   })
 }
 ```
+
+and bind it:
 
 ```js
   constructor() {
@@ -790,15 +796,13 @@ loadSamples(){
   }
 ```
 
-We can use a button in `App.js`:
+We could use a button in `App.js`:
 
 ```js
 <button onClick={this.loadSamples}>Load Sample Pirates</button>
 ```
 
-Delete and try in `PirateForm`:
-
-`<button onClick={this.props.loadSamples}>Load Sample Pirates</button>`:
+Delete it and try in `PirateForm`:
 
 ```js
 render() {
@@ -852,7 +856,7 @@ class PirateForm extends Component {
 }
 ```
 
-Now you can load sample pirates from pirateform
+Now you can load sample pirates from pirateform.
 
 ### Remove Pirate
 
@@ -866,13 +870,13 @@ removePirate(key){
 }
 ```
 
-Add to the constructor in App:
+Bind it in the constructor in App:
 
 ```js
 this.removePirate = this.removePirate.bind(this)
 ```
 
-`$r` App to see the 
+In the console, `$r` App to test, e.g.:
 
 ```js
 $r.removePirate('pirate1')
@@ -880,7 +884,7 @@ $r.removePirate('pirate1')
 
 Remove pirates from the pirate component.
 
-Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
+Pass the prop to `Pirate` from `App` using `removePirate = {this.removePirate}`:
 
 * App
 
@@ -903,7 +907,7 @@ removePirate={this.removePirate}
 loadSamples={this.loadSamples} />
 ```
 
-* PirateForm
+* `PirateForm`:
 
 `<button onClick={() => this.props.removePirate('pirate1')}>X</button>`
 
@@ -911,9 +915,9 @@ Test. This only removes pirate1.
 
 Add it to the `Pirate` component.
 
-Pirate.js:
+* `Pirate.js`:
 
-```
+```js
 return (
   <div className="pirate">
   <ul>
@@ -926,13 +930,13 @@ return (
   )
 ```
 
-Load pirates and examine the state in App.
+Load pirates and examine the state in App. 
 
 Pass it along as part of the Pirate component `index={key}` in App.
 
-* App
+* `App`:
 
-```
+```js
 {
   Object
   .keys(this.state.pirates)
@@ -943,9 +947,9 @@ Pass it along as part of the Pirate component `index={key}` in App.
 }
 ```
 
-* Pirate
+* `Pirate`:
 
-```
+```html
   <ul>
     <li>{details.name}</li>
     <li>{details.weapon}</li>
@@ -956,15 +960,17 @@ Pass it along as part of the Pirate component `index={key}` in App.
 
 Now we can add and delete any pirate.
 
+///// Stop here
+
 ### Persisting the Data
 
 I will demo this first using my db on Firebase.
 
 Create an account at `https://firebase.google.com/`
 
-Create a new project called `<firstname>-<lastname>-pirates`
+Create a new project using your first and last name: `<firstname>-<lastname>-pirates`
 
-Go to the empty database (left hand menu)
+Go to the empty database (left hand menu: `Develop > Database`)
 
 Go to rules:
 
@@ -977,7 +983,9 @@ Go to rules:
 }
 ```
 
-```
+Set them to:
+
+```js
 {
   "rules": {
     ".read": true,
@@ -1078,8 +1086,6 @@ const myStyle={
 ```
 
 Examine Code. Commit and push to github.
-
-///// Stop here
 
 ### Routing
 
