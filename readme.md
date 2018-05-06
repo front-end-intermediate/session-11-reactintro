@@ -382,13 +382,14 @@ In React tools, find App, view state.
 And add a method to `App.js` using the date method to create a unique identifier:
 
 ```js
-  addPirate(pirate){
-    //update state
+  addPirate(pirate) {
+    //take a copy of the current state and put it into pirates var 
     const pirates = {...this.state.pirates}
-    //add new pirate
+    //create a unique id
     const timestamp = Date.now()
+    //add new pirate using accessor and id - objectName["propertyName"] and assignment
     pirates[`pirate-${timestamp}`] = pirate
-    //set state
+    //set state pirates with var pirates
     this.setState({ pirates: pirates })
   }
 ```
@@ -434,15 +435,16 @@ Our `createPirate` function in `AddPirateForm` is called and works but it does n
 We now have an `addPirate` function in App.js:
 
 ```js
-addPirate(pirate){
-  //update state
-  const pirates = {...this.state.pirates}
-  //add new pirate
-  const timestamp = Date.now()
-  pirates[`pirate-${timestamp}`] = pirate
-  //set state
-  this.setState({ pirates: pirates })
-}
+  addPirate(pirate) {
+    //take a copy of the current state and put it into pirates var 
+    const pirates = {...this.state.pirates}
+    //create a unique id
+    const timestamp = Date.now()
+    //add new pirate using accessor and id - objectName["propertyName"] and assignment
+    pirates[`pirate-${timestamp}`] = pirate
+    //set state pirates with var pirates
+    this.setState({ pirates: pirates })
+  }
 ```
 
 Unlike the `createPirate` function, it stores the new pirate in state. Test with App in React tool:
