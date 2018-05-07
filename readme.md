@@ -739,7 +739,7 @@ Create a new pirate using the form.
 
 ///// start
 
-Add an object with the details to the Pirate properties and a few more display entries.
+Add an object with the details to the Pirate properties and a few more display entries shortening them with a variable: `const {details} = this.props;`.
 
 * `Pirate`:
 
@@ -770,7 +770,11 @@ Test again using the form.
 
 * `App.js`:
 
-We've already imported: `import piratesFile from './sample-pirates-object'`
+Import the pirates object: 
+
+`import piratesFile from './data/sample-pirates-object'`
+
+Create a new method:
 
 ```js
 loadSamples(){
@@ -779,6 +783,8 @@ loadSamples(){
   })
 }
 ```
+
+Bind it in the constructor:
 
 ```js
   constructor() {
@@ -791,7 +797,7 @@ loadSamples(){
   }
 ```
 
-We can use a button in `App.js`:
+We could use a button in `App.js`:
 
 ```js
 <button onClick={this.loadSamples}>Load Sample Pirates</button>
@@ -867,13 +873,13 @@ removePirate(key){
 }
 ```
 
-Add to the constructor in App:
+Bind it to the constructor in App:
 
 ```js
 this.removePirate = this.removePirate.bind(this)
 ```
 
-`$r` App to see the 
+`$r` App to see the results:
 
 ```js
 $r.removePirate('pirate1')
@@ -883,7 +889,7 @@ Remove pirates from the pirate component.
 
 Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 
-* App
+* `App`:
 
 ```js
 {
@@ -895,7 +901,7 @@ Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 }
 ```
 
-Pass the prop to `PirateForm` from App:
+Pass the prop to `PirateForm` from `App`:
 
 ```js
 <PirateForm
@@ -914,7 +920,7 @@ Add it to the `Pirate` component.
 
 Pirate.js:
 
-```
+```js
 return (
   <div className="pirate">
   <ul>
@@ -931,9 +937,9 @@ Load pirates and examine the state in App.
 
 Pass it along as part of the Pirate component `index={key}` in App.
 
-* App
+* `App`:
 
-```
+```js
 {
   Object
   .keys(this.state.pirates)
@@ -944,9 +950,11 @@ Pass it along as part of the Pirate component `index={key}` in App.
 }
 ```
 
-* Pirate
+Pass the index value of the pirate in question to the method:
 
-```
+* `Pirate`:
+
+```js
   <ul>
     <li>{details.name}</li>
     <li>{details.weapon}</li>
@@ -978,7 +986,7 @@ Go to rules:
 }
 ```
 
-```
+```js
 {
   "rules": {
     ".read": true,
@@ -993,11 +1001,11 @@ App.js state.
 
 in src create `base.js`
 
-```
+```js
 import Rebase from 're-base'
 
 const base = Rebase.createClass({
-  
+
 })
 ```
 
@@ -1016,14 +1024,15 @@ In Firebase click on Overview > Add Firebase to your webapp
 
 We need:
 
-```
+```js
 apiKey: "AIzaSyAHnKw63CUBAqSuCREgils_waYJ0qwpGiU",
 authDomain: "daniel-deverell-pirates.firebaseapp.com",
 databaseURL: "https://daniel-deverell-pirates.firebaseio.com",
 ```
 
+Edit base with the information:
 
-```
+```js
 import Rebase from 're-base'
 
 const base = Rebase.createClass({
@@ -1041,7 +1050,7 @@ Import into App.js
 
 Component Lifecycle: component will mount
 
-```
+```js
 componentWillMount(){
   this.ref = base.syncState(`daniel-deverell-pirates/pirates`, {
     context: this,
@@ -1050,17 +1059,19 @@ componentWillMount(){
 }
 ```
 
-```
+```js
 componentWillUmount(){
   base.removeBinding(this.ref)
 }
 ```
 
-Load pirates and examine the Firebase HTML5 websockets
+Load pirates and examine the Firebase HTML5 websockets.
 
-To delete a pirate we need to accomodate Firebase:
+To delete a pirate we need to accomodate Firebase.
 
-```
+* `App`:
+
+```js
 removePirate(key){
   const pirates = {...this.state.pirates}
   pirates[key] = null
@@ -1068,9 +1079,11 @@ removePirate(key){
 }
 ```
 
+///// Stop here
+
 Pirate.js
 
-```
+```js
 const myColor = '#C90813'
 
 const myStyle={
@@ -1080,7 +1093,7 @@ const myStyle={
 
 Examine Code. Commit and push to github.
 
-///// Stop here
+
 
 ### Routing
 
