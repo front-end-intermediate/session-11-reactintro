@@ -59,7 +59,7 @@ Add `<p>test</p>` above div to see a common error.
 
 A snippet is [available](http://wesbos.com/react-jsx-comments/) for sublime text.
 
-`{/* <img src={logo} className="logo" alt="logo" /> */}` 
+`{/* <img src={logo} className="logo" alt="logo" /> */}`
 
 Note - to use Emmet run - `ctrl-e`
 
@@ -383,7 +383,7 @@ And add a method to `App.js` using the date method to create a unique identifier
 
 ```js
   addPirate(pirate) {
-    //take a copy of the current state and put it into pirates var 
+    //take a copy of the current state and put it into pirates var
     const pirates = {...this.state.pirates}
     //create a unique id
     const timestamp = Date.now()
@@ -436,7 +436,7 @@ We now have an `addPirate` function in App.js:
 
 ```js
   addPirate(pirate) {
-    //take a copy of the current state and put it into pirates var 
+    //take a copy of the current state and put it into pirates var
     const pirates = {...this.state.pirates}
     //create a unique id
     const timestamp = Date.now()
@@ -770,7 +770,7 @@ Test again using the form.
 
 * `App.js`:
 
-Import the pirates object: 
+Import the pirates object:
 
 `import piratesFile from './data/sample-pirates-object'`
 
@@ -943,9 +943,9 @@ Pass it along as part of the Pirate component `index={key}` in App.
 {
   Object
   .keys(this.state.pirates)
-  .map( key => <Pirate key={key} 
+  .map( key => <Pirate key={key}
     index={key}
-    details={this.state.pirates[key]} 
+    details={this.state.pirates[key]}
     removePirate={this.removePirate} /> )
 }
 ```
@@ -1093,17 +1093,15 @@ const myStyle={
 
 Examine Code. Commit and push to github.
 
-
-
 ### Routing
 
-https://reacttraining.com/react-router/web/guides/quick-start
+[Quick start](https://reacttraining.com/react-router/web/guides/quick-start)
 
-`> npm install react-router-dom --save`
+`npm install react-router-dom --save`
 
-index.js
+* `index.js`:
 
-```
+```js
 import {
   BrowserRouter as Router,
   Route
@@ -1131,7 +1129,7 @@ ReactDOM.render(
 
 Use Header.js as a template
 
-```
+```js
 import React, { Component } from 'react'
 
 class PirateDetail extends Component {
@@ -1149,7 +1147,7 @@ export default PirateDetail;
 
 `<Route path="/pirate/:pid" component={PirateDetail} />`:
 
-```
+```js
 import PirateDetail from './PirateDetail';
 
 class Main extends React.Component {
@@ -1166,142 +1164,6 @@ class Main extends React.Component {
 }
 ```
 
-We probably want the routing to occur in App.js to keep the header and replace <Pirate /> and PirateForm />
+We probably want the routing to occur in `App.js` to keep the header and replace `<Pirate />` and `<PirateForm />`
 
-### Validation Homework
-
-Note the dependencies in package.json.
-
-`npm install`
-
-`npm run boom!`
-
-Note the classes Angular adds to the input fields as they are manipulated by the user in `static/partials/pirate-list.template.html`
-
-Give the form a name:
-
-`<form ng-submit="addPirate(pirate)" name="addform">`
-
-Disable the submit button:
-
-`<button ng-disabled="addform.$invalid" type="submit">Add Pirate</button>`
-
-Note: you can visually identify the button as being disabled using:
-
-```css
-button[disabled] {
-  background: #bbb;
-  cursor: not-allowed;
-  border: none;
-}
-```
-
-https://www.w3schools.com/csSref/playit.asp?filename=playcss_cursor&preval=not-allowed
-
-Give the input a name. Add a paragraph with ng-show conditions.
-
-```html
-<div class="form-group">
-  <label>
-    <input ng-model="$ctrl.pirate.name" required ng-minlength="6" placeholder="Name" name="pname" />
-    <svg viewBox="0 0 20 20" class="icon">
-      <path d="M0 0 L10 10 L0 20"></path>
-    </svg>
-  </label>
-  <p class="error" ng-show="addform.pname.$invalid && addform.pname.$touched"> A name must have at least 6 characters.</p>
-</div>
-```
-
-Note the svg.
-
-```css
-.error {
-  color: red;
-} 
-
-label {
-  display: flex;
-  height: 2rem;
-}
-
-input {
-  width: 100%;
-  height: 1.6rem;
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid hsl(0%, 0%, 85%);
-  order: 1;
-}
-```
-
-https://www.sitepoint.com/closer-look-svg-path-data/
-
-Ref: this video from [frontend.center](https://www.youtube.com/watch?v=af4ZQJ14yu8).
-
-```
-input:focus {
-  outline: none;
-  border-color: hsl(0%, 0%, 25%)
-}
-
-.icon {
-  width: 1rem;
-  opacity: 0;
-  transition: all 0.5s;
-  transform: translateX(-100%)
-  // stroke-dasharray: 0, 20;
-  // stroke-dashoffset: -14.642;
-}
-
-.icon path {
-  stroke: black;
-  fill: none;
-  stroke-width: 1px;
-}
-
-input:focus + .icon {
-  opacity: 1;
-  transform: translateX(0)
-  // stroke-dasharray: 28.284, 20;
-  // stroke-dashoffset: 0;
-}
-
-.ng-valid.ng-not-empty {
-  border-color: hsl(166, 72%, 40%)
-}
-
-.ng-invalid.ng-dirty {
-  border-color: hsl(0, 100%, 40%)
-}
-
-```
-
-Using the dash effect:
-
-```
-.icon {
-  width: 1rem;
-  // opacity: 0;
-  transition: all 0.5s;
-  // transform: translateX(-100%)
-  stroke-dasharray: 0, 20;
-  stroke-dashoffset: -14.642;
-}
-
-.icon path {
-  stroke: black;
-  fill: none;
-  stroke-width: 1px;
-}
-
-input:focus + .icon {
-  // opacity: 1;
-  // transform: translateX(0)
-  stroke-dasharray: 28.284, 20;
-  stroke-dashoffset: 0;
-}
-```
-
-See `https://www.w3schools.com/angular/angular_validation.asp` for a complete set of examples for Angular validation.
-
-### Notes
+## Notes
