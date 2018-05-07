@@ -737,7 +737,7 @@ And edit to use the key to pass a details prop to the Pirate component:
 
 Create a new pirate using the form.
 
-///// start
+## start spr2018
 
 Add an object with the details to the Pirate properties and a few more display entries shortening them with a variable: `const {details} = this.props;`.
 
@@ -797,13 +797,7 @@ Bind it in the constructor:
   }
 ```
 
-We could use a button in `App.js`:
-
-```js
-<button onClick={this.loadSamples}>Load Sample Pirates</button>
-```
-
-Delete and try in `PirateForm`:
+We will use a button in `PirateForm`:
 
 `<button onClick={this.props.loadSamples}>Load Sample Pirates</button>`:
 
@@ -818,6 +812,8 @@ render() {
     )
 }
 ```
+
+The `PirateFrom` will need access to this method.
 
 Add `loadSamples={this.loadSamples}` to props.
 
@@ -843,27 +839,11 @@ render() {
 }
 ```
 
-PirateForm (done):
-
-```js
-class PirateForm extends Component {
-  render() {
-    return (
-      <div className="pirate-form">
-      <h3>Pirate Form Component</h3>
-      <AddPirateForm addPirate={this.props.addPirate} />
-      <button onClick={this.props.loadSamples}>Load Sample Pirates</button>
-      </div>
-      )
-  }
-}
-```
-
-Now you can load sample pirates from pirateform
+TEst the button. Now you can load sample pirates from the pirate form.
 
 ### Remove Pirate
 
-Add a new function in `App`:
+Add a new method in `App`:
 
 ```js
 removePirate(key){
@@ -885,7 +865,7 @@ this.removePirate = this.removePirate.bind(this)
 $r.removePirate('pirate1')
 ```
 
-Remove pirates from the pirate component.
+We will locate the control to remove pirates in the pirate component.
 
 Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 
@@ -901,7 +881,7 @@ Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 }
 ```
 
-Pass the prop to `PirateForm` from `App`:
+We could also pass the prop to `PirateForm` from `App`:
 
 ```js
 <PirateForm
@@ -910,15 +890,17 @@ removePirate={this.removePirate}
 loadSamples={this.loadSamples} />
 ```
 
+And delete a pirate from there.
+
 * PirateForm
 
 `<button onClick={() => this.props.removePirate('pirate1')}>X</button>`
 
 Test. This only removes pirate1.
 
-Add it to the `Pirate` component.
+Since we want the controls to be associated with each Pirate entry we'll add it to the `Pirate` component.
 
-Pirate.js:
+* `Pirate.js`:
 
 ```js
 return (
@@ -965,17 +947,26 @@ Pass the index value of the pirate in question to the method:
 
 Now we can add and delete any pirate.
 
+But aren't we already passing along a key? Why do we need an index?
+
+Try this is `Pirate.js`:
+
+```js
+<li><button onClick={() => this.props.removePirate(this.props.key)}>X</button></li>
+```
+
+and note the error message.
+
 ### Persisting the Data
 
-I will demo this first using my db on Firebase.
+1. Create an account at [Firebase](https://firebase.com/)
+1. Create a new project called `<firstname>-<lastname>-pirates`
+1. Create Project
+1. Go to the empty database (left hand menu)
 
-Create an account at `https://firebase.google.com/`
+Click on Rules at the top.
 
-Create a new project called `<firstname>-<lastname>-pirates`
-
-Go to the empty database (left hand menu)
-
-Go to rules:
+Change this:
 
 ```js
 {
@@ -985,6 +976,8 @@ Go to rules:
   }
 }
 ```
+
+To this:
 
 ```js
 {
@@ -997,7 +990,9 @@ Go to rules:
 
 and Publish.
 
-App.js state.
+Examine App.js state. Any change to pirates needs to be made to firebase.
+
+## Rebase
 
 in src create `base.js`
 
@@ -1011,26 +1006,23 @@ const base = Rebase.createClass({
 
 [Rebase](https://www.npmjs.com/package/rebase) is a simple utility that we are going to need to massage strings.
 
-<!-- `$ npm install rebase --save` -->
+In a new terminal cd into `react-pirates` and run:
+
 `$ npm install re-base@2.2.0 --save`
 
-or just add to your package.json:
-
-"re-base": "2.2.0"
-
-Add domain, database URL, API key.
+### Add domain, database URL, API key.
 
 In Firebase click on Overview > Add Firebase to your webapp
 
-We need:
+We only need:
 
 ```js
-apiKey: "AIzaSyAHnKw63CUBAqSuCREgils_waYJ0qwpGiU",
-authDomain: "daniel-deverell-pirates.firebaseapp.com",
-databaseURL: "https://daniel-deverell-pirates.firebaseio.com",
+apiKey: "xxx",
+authDomain: "xxx",
+databaseURL: "xxx",
 ```
 
-Edit base with the information:
+Edit base with the information, e.g.:
 
 ```js
 import Rebase from 're-base'
@@ -1048,7 +1040,13 @@ Import into App.js
 
 `import base from './base'`
 
-Component Lifecycle: component will mount
+## React Component Lifecycle
+
+[Documentation](https://reactjs.org/docs/react-component.html).
+
+* component will mount - hooks into component before it is displayed.
+
+* `App`:
 
 ```js
 componentWillMount(){
@@ -1058,6 +1056,8 @@ componentWillMount(){
   })
 }
 ```
+
+And for good measure, remove the binding when the component is unmounted:
 
 ```js
 componentWillUmount(){
