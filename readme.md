@@ -737,6 +737,8 @@ And edit to use the key to pass a details prop to the Pirate component:
 
 Create a new pirate using the form.
 
+///// start
+
 Add an object with the details to the Pirate properties and a few more display entries.
 
 * `Pirate`:
@@ -759,7 +761,6 @@ class Pirate extends React.Component {
       )
   }
 }
-
 export default Pirate;
 ```
 
