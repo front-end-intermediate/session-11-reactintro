@@ -768,9 +768,9 @@ Test again using the form.
 
 ### Load sample data via PirateForm
 
-* `App.js`:
+Import the pirates object.
 
-Import the pirates object:
+* `App.js`:
 
 `import piratesFile from './data/sample-pirates-object'`
 
@@ -839,7 +839,7 @@ render() {
 }
 ```
 
-TEst the button. Now you can load sample pirates from the pirate form.
+Test the button. Now you can load sample pirates from the pirate form.
 
 ### Remove Pirate
 
@@ -856,7 +856,7 @@ removePirate(key){
 Bind it to the constructor in App:
 
 ```js
-this.removePirate = this.removePirate.bind(this)
+this.removePirate = this.removePirate.bind(this);
 ```
 
 `$r` App to see the results:
@@ -881,7 +881,7 @@ Pass the prop to `Pirate` from App using `removePirate = {this.removePirate}`:
 }
 ```
 
-We could also pass the prop to `PirateForm` from `App`:
+<!-- We could also pass the prop to `PirateForm` from `App`:
 
 ```js
 <PirateForm
@@ -896,7 +896,7 @@ And delete a pirate from there.
 
 `<button onClick={() => this.props.removePirate('pirate1')}>X</button>`
 
-Test. This only removes pirate1.
+Test. This only removes pirate1. -->
 
 Since we want the controls to be associated with each Pirate entry we'll add it to the `Pirate` component.
 
@@ -1002,6 +1002,8 @@ import Rebase from 're-base'
 const base = Rebase.createClass({
 
 })
+
+export default base;
 ```
 
 [Rebase](https://www.npmjs.com/package/rebase) is a simple utility that we are going to need to massage strings.
@@ -1022,7 +1024,7 @@ authDomain: "xxx",
 databaseURL: "xxx",
 ```
 
-Edit base with the information, e.g.:
+Edit base with the information, e.g. (DO NOT COPY THE THREE SETTING - USE YOUR OWN):
 
 ```js
 import Rebase from 're-base'
@@ -1050,12 +1052,14 @@ Import into App.js
 
 ```js
 componentWillMount(){
-  this.ref = base.syncState(`daniel-deverell-pirates/pirates`, {
+  this.ref = base.syncState(`< first name >-<last name>-pirates/pirates`, {
     context: this,
     state: 'pirates'
   })
 }
 ```
+
+_Note - fill in the first and last name fields._
 
 And for good measure, remove the binding when the component is unmounted:
 
@@ -1079,7 +1083,9 @@ removePirate(key){
 }
 ```
 
-///// Stop here
+## spr2018 Stop here
+
+Move on to [session 12](https://github.com/front-end-intermediate/session-12#bi-directional-data)
 
 Pirate.js
 
