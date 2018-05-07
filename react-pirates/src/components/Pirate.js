@@ -2,11 +2,14 @@ import React from 'react';
 import '../assets/css/Pirate.css';
 
 class Pirate extends React.Component {
-  render(){
+  render() {
+    const {details} = this.props;
     return (
       <div className='pirate'>
       <ul>
-      <li>{this.props.details.name}</li>
+      <li>{details.name}</li>
+      <li>{details.weapon}</li>
+      <li>{details.vessel}</li>
       </ul>
       </div>
     )

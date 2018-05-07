@@ -3,13 +3,15 @@ import Pirate from './components/Pirate';
 import Header from './components/Header';
 import PirateForm from './components/PirateForm';
 import './assets/css/app.css';
-import './data/sample-pirates-object';
+import piratesFile from './data/sample-pirates-object';
 
 class App extends Component {
   
   constructor() {
     super();
     this.addPirate = this.addPirate.bind(this);
+    this.loadSamples = this.loadSamples.bind(this);
+    this.removePirate = this.removePirate.bind(this);
     this.state = {
       pirates: {}
     }
@@ -27,13 +29,12 @@ class App extends Component {
         }
         </ul>
         
-      <PirateForm addPirate={this.addPirate} />
+      <PirateForm addPirate={this.addPirate} loadSamples={this.loadSamples} />
       </div>
     );
   }
   
   addPirate(pirate) {
-    console.log('hi from app')
     //take a copy of the current state andput it into pirates var 
     const pirates = {...this.state.pirates}
     //create a unique id
@@ -43,6 +44,19 @@ class App extends Component {
     //set state pirates with var pirates
     this.setState({ pirates: pirates })
   }
+
+  loadSamples(){
+    this.setState({
+      pirates: piratesFile
+    })
+  }
+
+  removePirate(key){
+    const pirates = {...this.state.pirates}
+    delete pirates[key]
+    this.setState({pirates})
+  }
+
 }
 
 export default App;
