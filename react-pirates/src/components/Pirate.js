@@ -10,6 +10,7 @@ class Pirate extends React.Component {
       <li>{details.name}</li>
       <li>{details.weapon}</li>
       <li>{details.vessel}</li>
+      <li><button onClick={() => this.props.removePirate(this.props.index)}>X</button></li>    
       </ul>
       </div>
     )

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import PirateForm from './components/PirateForm';
 import './assets/css/app.css';
 import piratesFile from './data/sample-pirates-object';
+import base from './base';
 
 class App extends Component {
   
@@ -12,6 +13,7 @@ class App extends Component {
     this.addPirate = this.addPirate.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.removePirate = this.removePirate.bind(this);
+    this.updatePirate = this.updatePirate.bind(this);
     this.state = {
       pirates: {}
     }
@@ -20,19 +22,38 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header headerTitle="Pirate List" />
         
         <ul>
         {
           Object.keys(this.state.pirates)
-          .map( key => <Pirate key={key} details={this.state.pirates[key]} /> )
+              .map(key => <Pirate key={key}
+                index={key} 
+                details={this.state.pirates[key]}
+                removePirate={this.removePirate} />)
         }
         </ul>
         
-      <PirateForm addPirate={this.addPirate} loadSamples={this.loadSamples} />
+        <PirateForm
+          addPirate={this.addPirate}
+          loadSamples={this.loadSamples}
+          pirates={this.state.pirates}
+          updatePirate={this.updatePirate} />
       </div>
     );
   }
+
+  componentWillMount(){
+    this.ref = base.syncState(`tom-jones-pirates/pirates`, {
+      context: this,
+      state: 'pirates'
+    })
+  }
+
+  componentWillUmount(){
+    base.removeBinding(this.ref)
+  }  
+  
   
   addPirate(pirate) {
     //take a copy of the current state andput it into pirates var 
@@ -53,7 +74,13 @@ class App extends Component {
 
   removePirate(key){
     const pirates = {...this.state.pirates}
-    delete pirates[key]
+    pirates[key] = null
+    this.setState({pirates})
+  }
+
+  updatePirate(key, updatedPirate) {
+    const pirates = { ...this.state.pirates }
+    pirates[key] = updatedPirate;
     this.setState({pirates})
   }
 
