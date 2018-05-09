@@ -5,6 +5,7 @@ import PirateForm from './components/PirateForm';
 import './assets/css/app.css';
 import piratesFile from './data/sample-pirates-object';
 import base from './base';
+import {withRouter} from 'react-router-dom';
 
 class App extends Component {
   
@@ -86,4 +87,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default withRouter(App);

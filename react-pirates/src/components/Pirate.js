@@ -8,11 +8,11 @@ class Pirate extends React.Component {
     return (
       <div className='pirate'>
       <ul>
-      <li>
-      <Link to={`${props.match.url}`}>
+      {/* <li>
+      <Link to={`${match.url}`}>
       {details.name}
       </Link>
-      </li>
+      </li> */}
       <li>{details.weapon}</li>
       <li>{details.vessel}</li>
       <li><button onClick={() => this.props.removePirate(this.props.index)}>X</button></li>    
