@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import './index.css';
 import App from './App';
 import PirateDetail from './components/PirateDetail';
 import registerServiceWorker from './registerServiceWorker';
@@ -15,7 +14,11 @@ class Main extends React.Component {
       <Router>
       <div>
           <Route exact path="/" component={App} />
-          <Route path="/pirate/:pid" component={PirateDetail} />
+          <Route path="/pirate/:pid" 
+          // component={PirateDetail} 
+          render={() => {
+            return <PirateDetail name="Jack" vessel="Shark" weapon="sword" />
+          }} />
       </div>
       </Router>
     )

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
 import '../assets/css/Pirate.css';
 
 class Pirate extends React.Component {
@@ -7,7 +8,11 @@ class Pirate extends React.Component {
     return (
       <div className='pirate'>
       <ul>
-      <li>{details.name}</li>
+      <li>
+      <Link to={`${props.match.url}`}>
+      {details.name}
+      </Link>
+      </li>
       <li>{details.weapon}</li>
       <li>{details.vessel}</li>
       <li><button onClick={() => this.props.removePirate(this.props.index)}>X</button></li>    
@@ -17,4 +22,4 @@ class Pirate extends React.Component {
   }
 }
 
-export default Pirate;
+export default withRouter(Pirate);
