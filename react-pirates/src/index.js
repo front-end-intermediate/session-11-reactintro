@@ -15,10 +15,11 @@ class Main extends React.Component {
       <div>
           <Route exact path="/" component={App} />
           <Route path="/pirate/:pid" 
-          // component={PirateDetail} 
-          render={() => {
-            return <PirateDetail name="Jack" vessel="Shark" weapon="sword" />
-          }} />
+          component={PirateDetail} 
+          // render={() => {
+          //   return <PirateDetail name="Jack" vessel="Shark" weapon="sword" />
+          //   }}
+          />
       </div>
       </Router>
     )
