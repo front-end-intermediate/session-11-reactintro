@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Pirate from './components/Pirate';
-import Header from './components/Header';
+// import Header from './components/Header';
 import PirateForm from './components/PirateForm';
 import './assets/css/app.css';
 import piratesFile from './data/sample-pirates-object';
@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header headerTitle="Pirate List" />
+        {/* <Header headerTitle="Pirate List" /> */}
         
         <ul>
         {

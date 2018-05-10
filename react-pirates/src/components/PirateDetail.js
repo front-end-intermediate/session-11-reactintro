@@ -45,7 +45,7 @@ class PirateDetail extends React.Component {
       <p>{this.props.location.pathname}</p>
       <p>{this.props.match.params.pid}</p>
       
-        <h3>{this.pirateName}</h3>
+      <h3>{this.pirateName}</h3>
       <p>{this.pirateDescription}</p>  
       
       {/* <p>Hullo 
